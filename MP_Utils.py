@@ -27,7 +27,7 @@ def mpu_err_dlg(**kwargs):
     """
     messagebox.showerror(**kwargs)
 
-    def mpu_warn_dlg(**kwargs):
+def mpu_warn_dlg(**kwargs):
         """
         Displays a warning message dialog using tkinter's messagebox.
 
@@ -43,7 +43,7 @@ def mpu_err_dlg(**kwargs):
         """
         messagebox.showwarning(**kwargs)
 
-        def mpu_uigetfile(**kwargs):
+def mpu_uigetfile(**kwargs):
             """
             Opens a file dialog to select a file using tkinter's filedialog.
 
@@ -64,38 +64,38 @@ def mpu_err_dlg(**kwargs):
             """
             return filedialog.askopenfilename(**kwargs)
         
-        def mpu_uiputfile(**kwargs):
-            """
-            Opens a file dialog to save a file using tkinter's filedialog.
+def mpu_uiputfile(**kwargs):
+    """
+    Opens a file dialog to save a file using tkinter's filedialog.
 
-            Parameters:
-            -----------
-            **kwargs : dict
-                Keyword arguments to be passed to filedialog.asksaveasfilename.
-                Common keys include 'initialdir', 'title', and 'defaultextension'.
+    Parameters:
+    -----------
+    **kwargs : dict
+    Keyword arguments to be passed to filedialog.asksaveasfilename.
+    Common keys include 'initialdir', 'title', and 'defaultextension'.
 
-            Returns:
-            --------
-            str
-                The selected file path for saving. Returns an empty string if no file is selected.
+    Returns:
+    --------
+    str
+    The selected file path for saving. Returns an empty string if no file is selected.
 
-            Example:
-            --------
-            filepath = mpu_uiputfile(title="Save file as", defaultextension=".txt")
-            """
-            return filedialog.asksaveasfilename(**kwargs)
+    Example:
+    --------
+    filepath = mpu_uiputfile(title="Save file as", defaultextension=".txt")
+    """
+    return filedialog.asksaveasfilename(**kwargs)
         
-        def mpu_uigetdir(**kwargs):
-            """
-            Opens a directory selection dialog using tkinter's filedialog.
+def mpu_uigetdir(**kwargs):
+    """
+    Opens a directory selection dialog using tkinter's filedialog.
 
-            Parameters:
-            -----------
-            **kwargs : dict
-                Keyword arguments to be passed to filedialog.askdirectory.
-                Common keys include 'initialdir' and 'title'.
+    Parameters:
+    -----------
+    **kwargs : dict
+    Keyword arguments to be passed to filedialog.askdirectory.
+    Common keys include 'initialdir' and 'title'.
 
-            Returns:
+    Returns:
             --------
             str
                 The selected directory path. Returns an empty string if no directory is selected.
@@ -104,4 +104,4 @@ def mpu_err_dlg(**kwargs):
             --------
             dirpath = mpu_uigetdir(title="Select a directory")
             """
-            return filedialog.askdirectory(**kwargs)
+    return filedialog.askdirectory(**kwargs)
