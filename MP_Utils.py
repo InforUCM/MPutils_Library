@@ -44,39 +44,63 @@ def mpu_warn_dlg(**kwargs):
         messagebox.showwarning(**kwargs)
 
 def mpu_uigetfile(filter="*.*",title="Select a file to open",defname="",multiple=False):
-            """
-            This code repliates the functionality of MATLAB's uigetfile function using 
-            tkinter's filedialog.
+        """
+        This code repliates the functionality of MATLAB's uigetfile function using 
+        tkinter's filedialog.askopenfilename.
 
-            Parameters:
-            -----------
-            filter : str
+        Parameters:
+        -----------
+        filter : str
             The file type filter for the dialog (default is "*.*" for all files).
-            title : str
+        title : str
             The title of the file dialog window (default is "Select a file to open").
-            defname: str
+        defname: str
             The default file name to display in the dialog (default is an empty string).
-            multiple : bool
+        multiple : bool
             If True, allows selection of multiple files (default is False).
 
-            Returns:
-            --------
-            nfile : str
+        Returns:
+        --------
+        nfile : str
             The selected file name. Returns an empty string if no file is selected.
-            ndir : str
+        ndir : str
             The directory of the selected file. Returns an empty string if no file is selected.
 
-            """
-            # 1. Open the file dialog
-            fullpath =  filedialog.askopenfilename(title=title, initialfile=defname, filetypes=[("All Files", filter)], multiple=multiple)
-            # 2. Check if a file was selected if not returns empty strings for nfile and ndir, otherwise split the path
-            if not fullpath:
-                return "", ""
-            else:
-                ndir, nfile = os.path.split(fullpath)
-                return nfile, ndir
+        """
+        # 1. Open the file dialog
+        fullpath =  filedialog.askopenfilename(title=title, initialfile=defname, filetypes=[("All Files", filter)], multiple=multiple)
+            
+        # 2. Handling user's cancellation
+        # Empty tuple of string indicates cancellation by the user
+        if not fullpath:
+            # Return a pair of empty strings or a pair of empty lists, depending on multiple file selectión.
+            return "", "" if not multiple else ([], []) 
+            
+        # 3. Handling single selection (multiple=False)
+        if not multiple:
+            # fullpath is a single string path
+            ndir, nfile = os.path.split(fullpath)
+            return nfile, ndir
         
-def mpu_uiputfile(**kwargs):
+        # 4. Handling multiple selection (multiple=True)
+        else:
+            # fullpath es a tuple of paths. Initialize lists to hold file names and directories
+            nfiles = []
+            ndirs = []
+            
+            # fullpath MUST be a tuple at this point
+            if isinstance(fullpath, tuple):
+                for path in fullpath:
+                    ndir, nfile = os.path.split(path)
+                    
+                    # Normalizing for avoiding inverted bars problems in Windows
+                    nfiles.append(nfile)
+                    ndirs.append(os.path.normpath(ndir))
+
+        # Returns: (list of filenames, lists of directories)
+        return nfiles, ndirs
+        
+def mpu_uiputfile(**kwargs): 
     """
     Opens a file dialog to save a file using tkinter's filedialog.
 
