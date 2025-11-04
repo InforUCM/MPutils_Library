@@ -43,26 +43,38 @@ def mpu_warn_dlg(**kwargs):
         """
         messagebox.showwarning(**kwargs)
 
-def mpu_uigetfile(**kwargs):
+def mpu_uigetfile(filter="*.*",title="Select a file to open",defname="",multiple=False):
             """
-            Opens a file dialog to select a file using tkinter's filedialog.
+            This code repliates the functionality of MATLAB's uigetfile function using 
+            tkinter's filedialog.
 
             Parameters:
             -----------
-            **kwargs : dict
-                Keyword arguments to be passed to filedialog.askopenfilename.
-                Common keys include 'initialdir', 'title', and 'filetypes'.
+            filter : str
+            The file type filter for the dialog (default is "*.*" for all files).
+            title : str
+            The title of the file dialog window (default is "Select a file to open").
+            defname: str
+            The default file name to display in the dialog (default is an empty string).
+            multiple : bool
+            If True, allows selection of multiple files (default is False).
 
             Returns:
             --------
-            str
-                The selected file path. Returns an empty string if no file is selected.
+            nfile : str
+            The selected file name. Returns an empty string if no file is selected.
+            ndir : str
+            The directory of the selected file. Returns an empty string if no file is selected.
 
-            Example:
-            --------
-            filepath = mpu_uigetfile(title="Select a file", filetypes=[("Text files", "*.txt"), ("All files", "*.*")])
             """
-            return filedialog.askopenfilename(**kwargs)
+            # 1. Open the file dialog
+            fullpath =  filedialog.askopenfilename(title=title, initialfile=defname, filetypes=[("All Files", filter)], multiple=multiple)
+            # 2. Check if a file was selected if not returns empty strings for nfile and ndir, otherwise split the path
+            if not fullpath:
+                return "", ""
+            else:
+                ndir, nfile = os.path.split(fullpath)
+                return nfile, ndir
         
 def mpu_uiputfile(**kwargs):
     """
