@@ -44,7 +44,7 @@ class Test_MPUtils_Library:
 
     """ Test mpu_uigetfile function with just title argument"""
     @patch('tkinter.filedialog.askopenfilename', return_value = 'C:/user/testfile.txt', title = "Open a file for test procesing")
-    def text_mpu_uigetfile_title_arg(self, mock_askopenfilename):
+    def test_mpu_uigetfile_title_arg(self, mock_askopenfilename):
         """ Test mpu_uigetfile with title argument """
         # 1. Calls the function
         filename, dirname = mpu.mpu_uigetfile(title="Open a file for test procesing")
@@ -59,7 +59,7 @@ class Test_MPUtils_Library:
     """ Test mpu_uigetfile function with multiple arguments"""
     file_set = ('C:/user/testfile1.txt', 'C:/user/testfile2.txt')
     @patch('tkinter.filedialog.askopenfilename', return_value = file_set)
-    def text_mpu_uigetfile_title_arg(self, mock_askopenfilename):
+    def test_mpu_uigetfile_multiple_files(self, mock_askopenfilename):
         """ Test mpu_uigetfile with title argument """
         # 1. Calls the function
         filename, dirname = mpu.mpu_uigetfile(multiple = True)
